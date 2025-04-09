@@ -38,9 +38,20 @@ Because the output vector is longer than the number of datapoints, the data will
 For the AM sweep the live plot shows C/SB vs SDR transmit gain (GTx). For the CL sweep the live plot is GTx-PRx vs GTx; this value is calculated inside the CL sweep block.
 
 ### Saving Data
-Data is saved as a .csv file to the folder specified by the "Filepath" argument to the sweep controller. The file is saved as `yyyy-mm-dd-HHMMSS_FREQMHz_FileName.csv`. If "Include Date/Time" is not checked in the GUI, the timestamp is omitted. FREQ is the transmit frequency.
+Data is saved as a .csv file to the folder specified by the "Filepath" argument to the sweep controller. The file is saved as `yyyy-mm-dd-HHMMSS_FREQMHz_FileName.csv`. If "Include Date/Time" is not checked in the GUI, the timestamp is omitted. FREQ is the transmit frequency. If the timestamp is not included, the file will be overwritten if duplicate filenames are used.
 
-The format of the .csv is columns organized as `GTx | C/SB | LSB | C | USB` for the AM sweep, where LSB and USB are the lower and upper sideband power and C is the carrier power. For the CL sweep, the file format is  
+The format of the .csv is columns organized as `GTx | C/SB | LSB | C | USB` for the AM sweep, where LSB and USB are the lower and upper sideband power and C is the carrier power. For the CL sweep, the file format is `GTx | GTx-PRx | PRx`, where GTx is the SDR Gain and PRx is the measured recieve power.
+
+## Notes
+- The receive channel on the SDR is tuned to a frequency slightly off of the second harmonic. A frequency shift is then performed to center the spectrum on the second harmonic, before low pass filtering to reduce the sample rate and eliminate any out of band interference. This is done to avoid a DC spike that can appear on some hardware.
+- The modulation frequency used is 10khz. This can be changed by updating the Fm variable
+- The transmit amplifier on the B200 series has a maximum gain of 89 dB. However, exceeding ~70 dB begins to introduce nonlinearities from the amplifier. The maximum gain for the receiver amplifier is 76 dB.
+- The power measurements providing by the SDR are relative measurements. To get absolute power, a frequency specific calibration should be performed to check the SDR performance at the frequency of interest.
+
+## Contact
+Please reach out to [sfought@uvm.edu] with any questions.
+
+
 
 
 
