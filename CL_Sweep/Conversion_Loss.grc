@@ -28,7 +28,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 20.0]
+    coordinate: [40, 20.0]
     rotation: 0
     state: enabled
 
@@ -45,7 +45,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1456, 428.0]
+    coordinate: [1560, 140.0]
     rotation: 0
     state: enabled
 - name: Decimation
@@ -57,7 +57,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [120, 132.0]
+    coordinate: [152, 132.0]
     rotation: 0
     state: true
 - name: FRx
@@ -69,7 +69,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 196.0]
+    coordinate: [216, 196.0]
     rotation: 0
     state: true
 - name: FTx
@@ -84,7 +84,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1464, 340.0]
+    coordinate: [1264, 228.0]
     rotation: 0
     state: enabled
 - name: Fm
@@ -96,7 +96,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 196.0]
+    coordinate: [320, 196.0]
     rotation: 0
     state: enabled
 - name: GRx
@@ -111,7 +111,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1592, 340.0]
+    coordinate: [1552, 228.0]
     rotation: 0
     state: enabled
 - name: GTx
@@ -126,7 +126,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1648, 212.0]
+    coordinate: [1408, 228.0]
     rotation: 0
     state: enabled
 - name: Length
@@ -138,7 +138,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [0, 196.0]
+    coordinate: [32, 196.0]
     rotation: 0
     state: enabled
 - name: RxShift
@@ -150,7 +150,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [96, 196.0]
+    coordinate: [128, 196.0]
     rotation: 0
     state: true
 - name: Start
@@ -166,7 +166,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1272, 12.0]
+    coordinate: [1272, 52.0]
     rotation: 0
     state: true
 - name: Step
@@ -182,7 +182,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1528, 12.0]
+    coordinate: [1528, 52.0]
     rotation: 0
     state: true
 - name: Stop
@@ -198,7 +198,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1408, 12.0]
+    coordinate: [1408, 52.0]
     rotation: 0
     state: true
 - name: Sweep
@@ -215,7 +215,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1832, 204.0]
+    coordinate: [1560, 316.0]
     rotation: 0
     state: true
 - name: appendDT
@@ -232,7 +232,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1712, 420.0]
+    coordinate: [1408, 404.0]
     rotation: 0
     state: true
 - name: buffer
@@ -247,7 +247,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1568, 428.0]
+    coordinate: [1272, 316.0]
     rotation: 0
     state: enabled
 - name: lpf_cut
@@ -259,7 +259,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 132.0]
+    coordinate: [248, 132.0]
     rotation: 0
     state: enabled
 - name: name
@@ -274,7 +274,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1544, 212.0]
+    coordinate: [1448, 140.0]
     rotation: 0
     state: true
 - name: outlen
@@ -290,7 +290,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1720, 340.0]
+    coordinate: [1416, 316.0]
     rotation: 0
     state: true
 - name: path
@@ -305,7 +305,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1688, 532.0]
+    coordinate: [1264, 140.0]
     rotation: 0
     state: true
 - name: samp_rate_src
@@ -317,7 +317,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 132.0]
+    coordinate: [40, 132.0]
     rotation: 0
     state: enabled
 - name: analog_sig_source_x_0_2
@@ -372,7 +372,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384, 484.0]
+    coordinate: [552, 452.0]
     rotation: 0
     state: enabled
 - name: blocks_max_xx_1
@@ -391,7 +391,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [504, 1012.0]
+    coordinate: [408, 932.0]
     rotation: 0
     state: true
 - name: blocks_msgpair_to_var_0
@@ -405,7 +405,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1120, 1140.0]
+    coordinate: [1024, 1044.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_xx_0
@@ -444,42 +444,6 @@ blocks:
     coordinate: [1176, 700.0]
     rotation: 0
     state: enabled
-- name: blocks_null_sink_0
-  id: blocks_null_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    bus_structure_sink: '[[0,],]'
-    comment: ''
-    num_inputs: '1'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [384, 544.0]
-    rotation: 0
-    state: true
-- name: blocks_null_source_0
-  id: blocks_null_source
-  parameters:
-    affinity: ''
-    alias: ''
-    bus_structure_source: '[[0,],]'
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_outputs: '1'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [688, 264.0]
-    rotation: 0
-    state: true
 - name: blocks_stream_to_vector_0
   id: blocks_stream_to_vector
   parameters:
@@ -530,7 +494,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1296, 212.0]
+    coordinate: [40, 268.0]
     rotation: 0
     state: true
 - name: low_pass_filter_0
@@ -554,7 +518,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 444.0]
+    coordinate: [768, 412.0]
     rotation: 0
     state: enabled
 - name: portable_interrogator_blocks_CL_Sweep_Controller_0
@@ -580,7 +544,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [808, 940.0]
+    coordinate: [712, 860.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_1
@@ -661,72 +625,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 540.0]
+    coordinate: [992, 520.0]
     rotation: 0
     state: enabled
-- name: qtgui_number_sink_0
-  id: qtgui_number_sink
-  parameters:
-    affinity: ''
-    alias: ''
-    autoscale: 'False'
-    avg: '0'
-    color1: ("black", "black")
-    color10: ("black", "black")
-    color2: ("black", "black")
-    color3: ("black", "black")
-    color4: ("black", "black")
-    color5: ("black", "black")
-    color6: ("black", "black")
-    color7: ("black", "black")
-    color8: ("black", "black")
-    color9: ("black", "black")
-    comment: ''
-    factor1: '1'
-    factor10: '1'
-    factor2: '1'
-    factor3: '1'
-    factor4: '1'
-    factor5: '1'
-    factor6: '1'
-    factor7: '1'
-    factor8: '1'
-    factor9: '1'
-    graph_type: qtgui.NUM_GRAPH_NONE
-    gui_hint: (1,3,1,1)
-    label1: PRx
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    max: '1'
-    min: '-1'
-    name: '""'
-    nconnections: '1'
-    type: float
-    unit1: dB
-    unit10: ''
-    unit2: ''
-    unit3: ''
-    unit4: ''
-    unit5: ''
-    unit6: ''
-    unit7: ''
-    unit8: ''
-    unit9: ''
-    update_time: '0.10'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [824, 828.0]
-    rotation: 0
-    state: disabled
 - name: qtgui_vector_sink_f_0
   id: qtgui_vector_sink_f
   parameters:
@@ -798,7 +699,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1104, 964.0]
+    coordinate: [1000, 876.0]
     rotation: 0
     state: enabled
 - name: tab
@@ -832,7 +733,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1408, 212.0]
+    coordinate: [1272, 404.0]
     rotation: 0
     state: true
 - name: uhd_usrp_sink_0
@@ -905,7 +806,7 @@ blocks:
     bw8: '0'
     bw9: '0'
     center_freq0: FTx
-    center_freq1: FTx
+    center_freq1: ''
     center_freq10: '0'
     center_freq11: '0'
     center_freq12: '0'
@@ -1079,7 +980,7 @@ blocks:
     lo_source9: internal
     maxoutbuf: '0'
     minoutbuf: '0'
-    nchan: '2'
+    nchan: '1'
     num_mboards: '1'
     otw: ''
     samp_rate: samp_rate_src
@@ -1095,7 +996,7 @@ blocks:
     start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
-    sync: pc_clock_next_pps
+    sync: sync
     time_source0: ''
     time_source1: ''
     time_source2: ''
@@ -1109,7 +1010,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 148.0]
+    coordinate: [856, 156.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -1182,7 +1083,7 @@ blocks:
     bw8: '0'
     bw9: '0'
     center_freq0: uhd.tune_request(FRx,0)
-    center_freq1: uhd.tune_request(FRx,0)
+    center_freq1: ''
     center_freq10: '0'
     center_freq11: '0'
     center_freq12: '0'
@@ -1290,7 +1191,7 @@ blocks:
     dev_addr: '""'
     dev_args: ''
     gain0: GRx
-    gain1: GRx
+    gain1: '0'
     gain10: '0'
     gain11: '0'
     gain12: '0'
@@ -1483,7 +1384,7 @@ blocks:
     lo_source9: internal
     maxoutbuf: '0'
     minoutbuf: '0'
-    nchan: '2'
+    nchan: '1'
     num_mboards: '1'
     otw: ''
     rx_agc0: Disabled
@@ -1531,7 +1432,7 @@ blocks:
     start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
-    sync: none
+    sync: sync
     time_source0: ''
     time_source1: ''
     time_source2: ''
@@ -1545,7 +1446,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 468.0]
+    coordinate: [232, 436.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1571,7 +1472,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 492.0]
+    coordinate: [984, 460.0]
     rotation: 0
     state: enabled
 - name: virtual_source_0
@@ -1584,7 +1485,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 1020.0]
+    coordinate: [192, 940.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1
@@ -1606,10 +1507,8 @@ connections:
 - [blocks_complex_to_mag_squared_0, '0', blocks_nlog10_ff_0, '0']
 - [blocks_freqshift_cc_0, '0', low_pass_filter_0, '0']
 - [blocks_max_xx_1, '0', portable_interrogator_blocks_CL_Sweep_Controller_0, '0']
-- [blocks_max_xx_1, '0', qtgui_number_sink_0, '0']
 - [blocks_multiply_const_xx_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [blocks_nlog10_ff_0, '0', virtual_sink_0, '0']
-- [blocks_null_source_0, '0', uhd_usrp_sink_0, '1']
 - [blocks_stream_to_vector_0, '0', fft_vxx_0, '0']
 - [fft_vxx_0, '0', blocks_multiply_const_xx_0, '0']
 - [low_pass_filter_0, '0', qtgui_freq_sink_x_1, '0']
@@ -1619,7 +1518,6 @@ connections:
 - [portable_interrogator_blocks_CL_Sweep_Controller_0, gain_out, blocks_msgpair_to_var_0,
   inpair]
 - [uhd_usrp_source_0, '0', blocks_freqshift_cc_0, '0']
-- [uhd_usrp_source_0, '1', blocks_null_sink_0, '0']
 - [virtual_source_0, '0', blocks_max_xx_1, '0']
 - [virtual_source_1, '0', blocks_stream_to_vector_0, '0']
 

@@ -305,7 +305,7 @@ class top_block(gr.top_block, Qt.QWidget):
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
-                channels=list(range(0,2)),
+                channels=[0],
             ),
         )
         self.uhd_usrp_source_0.set_samp_rate(samp_rate_src)
@@ -315,37 +315,21 @@ class top_block(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_antenna("RX2", 0)
         self.uhd_usrp_source_0.set_rx_agc(False, 0)
         self.uhd_usrp_source_0.set_gain(GRx, 0)
-
-        self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(FRx,0), 1)
-        self.uhd_usrp_source_0.set_antenna("RX2", 1)
-        self.uhd_usrp_source_0.set_rx_agc(False, 1)
-        self.uhd_usrp_source_0.set_gain(GRx, 1)
         self.uhd_usrp_sink_0 = uhd.usrp_sink(
             ",".join(("", '')),
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
-                channels=list(range(0,2)),
+                channels=list(range(0,1)),
             ),
             "",
         )
         self.uhd_usrp_sink_0.set_samp_rate(samp_rate_src)
-        _last_pps_time = self.uhd_usrp_sink_0.get_time_last_pps().get_real_secs()
-        # Poll get_time_last_pps() every 50 ms until a change is seen
-        while(self.uhd_usrp_sink_0.get_time_last_pps().get_real_secs() == _last_pps_time):
-            time.sleep(0.05)
-        # Set the time to PC time on next PPS
-        self.uhd_usrp_sink_0.set_time_next_pps(uhd.time_spec(int(time.time()) + 1.0))
-        # Sleep 1 second to ensure next PPS has come
-        time.sleep(1)
+        self.uhd_usrp_sink_0.set_time_unknown_pps(uhd.time_spec(0))
 
         self.uhd_usrp_sink_0.set_center_freq(FTx, 0)
         self.uhd_usrp_sink_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_sink_0.set_gain(GTx, 0)
-
-        self.uhd_usrp_sink_0.set_center_freq(FTx, 1)
-        self.uhd_usrp_sink_0.set_antenna("TX/RX", 1)
-        self.uhd_usrp_sink_0.set_gain(0, 1)
         self.qtgui_vector_sink_f_0 = qtgui.vector_sink_f(
             getPow.nextPow(outlen),
             Start,
@@ -479,8 +463,6 @@ class top_block(gr.top_block, Qt.QWidget):
                 6.76))
         self.fft_vxx_0 = fft.fft_vcc(Length, True, window.blackmanharris(Length), True, 1)
         self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, Length)
-        self.blocks_null_source_0 = blocks.null_source(gr.sizeof_gr_complex*1)
-        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_gr_complex*1)
         self.blocks_nlog10_ff_0 = blocks.nlog10_ff(10, Length, 0)
         self.blocks_multiply_const_xx_0 = blocks.multiply_const_cc(1/Length, Length)
         self.blocks_msgpair_to_var_0 = blocks.msg_pair_to_var(self.set_GTx)
@@ -500,20 +482,18 @@ class top_block(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_freqshift_cc_0, 0), (self.low_pass_filter_0, 0))
         self.connect((self.blocks_multiply_const_xx_0, 0), (self.blocks_complex_to_mag_squared_0, 0))
         self.connect((self.blocks_nlog10_ff_0, 0), (self.portable_interrogator_blocks_get_peaks_0, 0))
-        self.connect((self.blocks_null_source_0, 0), (self.uhd_usrp_sink_0, 1))
         self.connect((self.blocks_stream_to_vector_0, 0), (self.fft_vxx_0, 0))
         self.connect((self.fft_vxx_0, 0), (self.blocks_multiply_const_xx_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.blocks_stream_to_vector_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.qtgui_freq_sink_x_1, 0))
-        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 0), (self.portable_interrogator_blocks_csb_gain_control_0, 0))
-        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 2), (self.portable_interrogator_blocks_csb_gain_control_0, 2))
-        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 1), (self.portable_interrogator_blocks_csb_gain_control_0, 1))
         self.connect((self.portable_interrogator_blocks_CSB_calc_0, 3), (self.portable_interrogator_blocks_csb_gain_control_0, 3))
+        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 1), (self.portable_interrogator_blocks_csb_gain_control_0, 1))
+        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 2), (self.portable_interrogator_blocks_csb_gain_control_0, 2))
+        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 0), (self.portable_interrogator_blocks_csb_gain_control_0, 0))
         self.connect((self.portable_interrogator_blocks_CSB_calc_0, 0), (self.qtgui_number_sink_0, 0))
         self.connect((self.portable_interrogator_blocks_csb_gain_control_0, 0), (self.qtgui_vector_sink_f_0, 0))
         self.connect((self.portable_interrogator_blocks_get_peaks_0, 0), (self.portable_interrogator_blocks_CSB_calc_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.blocks_freqshift_cc_0, 0))
-        self.connect((self.uhd_usrp_source_0, 1), (self.blocks_null_sink_0, 0))
 
 
     def closeEvent(self, event):
@@ -568,7 +548,6 @@ class top_block(gr.top_block, Qt.QWidget):
         Qt.QMetaObject.invokeMethod(self._FTx_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.FTx)))
         self.portable_interrogator_blocks_csb_gain_control_0.set_freq(self.FTx)
         self.uhd_usrp_sink_0.set_center_freq(self.FTx, 0)
-        self.uhd_usrp_sink_0.set_center_freq(self.FTx, 1)
 
     def get_samp_rate_src(self):
         return self.samp_rate_src
@@ -670,7 +649,6 @@ class top_block(gr.top_block, Qt.QWidget):
         self.GRx = GRx
         Qt.QMetaObject.invokeMethod(self._GRx_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.GRx)))
         self.uhd_usrp_source_0.set_gain(self.GRx, 0)
-        self.uhd_usrp_source_0.set_gain(self.GRx, 1)
 
     def get_Fm(self):
         return self.Fm
@@ -688,7 +666,6 @@ class top_block(gr.top_block, Qt.QWidget):
         self.FRx = FRx
         self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.FRx,0), 0)
-        self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.FRx,0), 1)
 
     def get_Decimation(self):
         return self.Decimation
