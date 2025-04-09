@@ -49,7 +49,7 @@ The format of the .csv is columns organized as `GTx | C/SB | LSB | C | USB` for 
 - The power measurements providing by the SDR are relative measurements. To get absolute power, a frequency specific calibration should be performed to check the SDR performance at the frequency of interest.
 
 ## Contact
-Please reach out to [sfought@uvm.edu] with any questions.
+Please reach out to sfought@uvm.edu with any questions.
 
 
 
