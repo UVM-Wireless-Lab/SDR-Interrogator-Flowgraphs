@@ -8,7 +8,7 @@
 # Title: CSB Gain Sweep
 # Author: Rye Fought (ryesof@gmail.com)
 # Description: Script for sweeping C/SB ratio for AM interrogation of harmonic transponder
-# GNU Radio version: 3.10.5.1
+# GNU Radio version: 3.10.1.1
 
 from packaging.version import Version as StrictVersion
 
@@ -90,7 +90,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.FTx = FTx = 890e6
         self.samp_rate_src = samp_rate_src = 2e6
         self.path = path = '/home/interrogator/Desktop/Data/CSB_Sweep/'
-        self.outlen = outlen = (int(1+(Stop-Start)/Step))
+        self.outlen = outlen = int(1+(Stop-Start)/Step)
         self.name = name = ""
         self.lpf_cut = lpf_cut = 50e3
         self.buffer = buffer = 10
@@ -108,7 +108,6 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-
         self.tab = Qt.QTabWidget()
         self.tab_widget_0 = Qt.QWidget()
         self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
@@ -341,14 +340,12 @@ class top_block(gr.top_block, Qt.QWidget):
             None # parent
         )
         self.qtgui_vector_sink_f_0.set_update_time(0.01)
-        self.qtgui_vector_sink_f_0.set_y_axis((-1), 20)
+        self.qtgui_vector_sink_f_0.set_y_axis(-1, 20)
         self.qtgui_vector_sink_f_0.enable_autoscale(True)
         self.qtgui_vector_sink_f_0.enable_grid(True)
         self.qtgui_vector_sink_f_0.set_x_axis_units("dB")
         self.qtgui_vector_sink_f_0.set_y_axis_units("dB")
         self.qtgui_vector_sink_f_0.set_ref_level(0)
-
-        self.qtgui_vector_sink_f_0.disable_legend()
 
         labels = ['', '', '', '', '',
             '', '', '', '', '']
@@ -410,14 +407,14 @@ class top_block(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_1 = qtgui.freq_sink_c(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
-            (FRx+RxShift), #fc
-            (samp_rate_src/Decimation), #bw
+            FRx+RxShift, #fc
+            samp_rate_src/Decimation, #bw
             "FFT", #name
             1,
             None # parent
         )
         self.qtgui_freq_sink_x_1.set_update_time(0.10)
-        self.qtgui_freq_sink_x_1.set_y_axis((-140), 10)
+        self.qtgui_freq_sink_x_1.set_y_axis(-140, 10)
         self.qtgui_freq_sink_x_1.set_y_label('Relative Gain', 'dB')
         self.qtgui_freq_sink_x_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
         self.qtgui_freq_sink_x_1.enable_autoscale(False)
@@ -449,8 +446,8 @@ class top_block(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_1_win = sip.wrapinstance(self.qtgui_freq_sink_x_1.qwidget(), Qt.QWidget)
         self.tab_layout_1.addWidget(self._qtgui_freq_sink_x_1_win)
-        self.portable_interrogator_blocks_get_peaks_0 = portable_interrogator_blocks.get_peaks(1024, (int((-1*Fm)*Length/(samp_rate_src/Decimation))+int(Length/2)), (int(Length/2)), (int((Fm)*Length/(samp_rate_src/Decimation))+int(Length/2)), 80)
-        self.portable_interrogator_blocks_csb_gain_control_0 = portable_interrogator_blocks.csb_gain_control(Sweep, Start, Stop, Step, buffer, Average, path, getPow.nextPow(outlen),name,appendDT,FTx)
+        self.portable_interrogator_blocks_get_peaks_0 = portable_interrogator_blocks.get_peaks(1024, int((-1*Fm)*Length/(samp_rate_src/Decimation))+int(Length/2), int(Length/2), int((Fm)*Length/(samp_rate_src/Decimation))+int(Length/2), 80)
+        self.portable_interrogator_blocks_csb_gain_control_0 = portable_interrogator_blocks.csb_gain_control(Sweep, Start, Stop, Step, buffer, Average, path, getPow.nextPow(outlen),name,appendDT)
         self.portable_interrogator_blocks_CSB_calc_0 = portable_interrogator_blocks.CSB_calc()
         self.low_pass_filter_0 = filter.fir_filter_ccf(
             Decimation,
@@ -466,16 +463,16 @@ class top_block(gr.top_block, Qt.QWidget):
         self.blocks_nlog10_ff_0 = blocks.nlog10_ff(10, Length, 0)
         self.blocks_multiply_const_xx_0 = blocks.multiply_const_cc(1/Length, Length)
         self.blocks_msgpair_to_var_0 = blocks.msg_pair_to_var(self.set_GTx)
-        self.blocks_freqshift_cc_0 = blocks.rotator_cc(2.0*math.pi*(-1*(RxShift))/samp_rate_src)
+        self.blocks_freqshift_cc_0 = blocks.rotator_cc(2.0*math.pi*-1*(RxShift)/samp_rate_src)
         self.blocks_float_to_complex_0_0 = blocks.float_to_complex(1)
         self.blocks_complex_to_mag_squared_0 = blocks.complex_to_mag_squared(Length)
-        self.analog_sig_source_x_0_2 = analog.sig_source_f(samp_rate_src, analog.GR_COS_WAVE, Fm, (0.5*Mod_ind), 0.5, 0)
+        self.analog_sig_source_x_0_2 = analog.sig_source_f(samp_rate_src, analog.GR_COS_WAVE, Fm, 0.5*Mod_ind, 0.5, 0)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.portable_interrogator_blocks_csb_gain_control_0, 'gain_out'), (self.blocks_msgpair_to_var_0, 'inpair'))
+        self.msg_connect((self.portable_interrogator_blocks_csb_gain_control_0, 'param_out'), (self.blocks_msgpair_to_var_0, 'inpair'))
         self.connect((self.analog_sig_source_x_0_2, 0), (self.blocks_float_to_complex_0_0, 0))
         self.connect((self.blocks_complex_to_mag_squared_0, 0), (self.blocks_nlog10_ff_0, 0))
         self.connect((self.blocks_float_to_complex_0_0, 0), (self.uhd_usrp_sink_0, 0))
@@ -486,10 +483,10 @@ class top_block(gr.top_block, Qt.QWidget):
         self.connect((self.fft_vxx_0, 0), (self.blocks_multiply_const_xx_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.blocks_stream_to_vector_0, 0))
         self.connect((self.low_pass_filter_0, 0), (self.qtgui_freq_sink_x_1, 0))
-        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 3), (self.portable_interrogator_blocks_csb_gain_control_0, 3))
-        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 1), (self.portable_interrogator_blocks_csb_gain_control_0, 1))
         self.connect((self.portable_interrogator_blocks_CSB_calc_0, 2), (self.portable_interrogator_blocks_csb_gain_control_0, 2))
+        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 3), (self.portable_interrogator_blocks_csb_gain_control_0, 3))
         self.connect((self.portable_interrogator_blocks_CSB_calc_0, 0), (self.portable_interrogator_blocks_csb_gain_control_0, 0))
+        self.connect((self.portable_interrogator_blocks_CSB_calc_0, 1), (self.portable_interrogator_blocks_csb_gain_control_0, 1))
         self.connect((self.portable_interrogator_blocks_CSB_calc_0, 0), (self.qtgui_number_sink_0, 0))
         self.connect((self.portable_interrogator_blocks_csb_gain_control_0, 0), (self.qtgui_vector_sink_f_0, 0))
         self.connect((self.portable_interrogator_blocks_get_peaks_0, 0), (self.portable_interrogator_blocks_CSB_calc_0, 0))
@@ -510,7 +507,7 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Stop(self, Stop):
         self.Stop = Stop
         Qt.QMetaObject.invokeMethod(self._Stop_label, "setText", Qt.Q_ARG("QString", str(self._Stop_formatter(self.Stop))))
-        self.set_outlen((int(1+(self.Stop-self.Start)/self.Step)))
+        self.set_outlen(int(1+(self.Stop-self.Start)/self.Step))
 
     def get_Step(self):
         return self.Step
@@ -518,7 +515,7 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Step(self, Step):
         self.Step = Step
         Qt.QMetaObject.invokeMethod(self._Step_label, "setText", Qt.Q_ARG("QString", str(self._Step_formatter(self.Step))))
-        self.set_outlen((int(1+(self.Stop-self.Start)/self.Step)))
+        self.set_outlen(int(1+(self.Stop-self.Start)/self.Step))
         self.qtgui_vector_sink_f_0.set_x_axis(self.Start, self.Step)
 
     def get_Start(self):
@@ -527,7 +524,7 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Start(self, Start):
         self.Start = Start
         Qt.QMetaObject.invokeMethod(self._Start_label, "setText", Qt.Q_ARG("QString", str(self._Start_formatter(self.Start))))
-        self.set_outlen((int(1+(self.Stop-self.Start)/self.Step)))
+        self.set_outlen(int(1+(self.Stop-self.Start)/self.Step))
         self.qtgui_vector_sink_f_0.set_x_axis(self.Start, self.Step)
 
     def get_RxShift(self):
@@ -536,8 +533,8 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_RxShift(self, RxShift):
         self.RxShift = RxShift
         self.set_FRx(2*self.FTx-self.RxShift)
-        self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*(-1*(self.RxShift))/self.samp_rate_src)
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*-1*(self.RxShift)/self.samp_rate_src)
+        self.qtgui_freq_sink_x_1.set_frequency_range(self.FRx+self.RxShift, self.samp_rate_src/self.Decimation)
 
     def get_FTx(self):
         return self.FTx
@@ -546,7 +543,6 @@ class top_block(gr.top_block, Qt.QWidget):
         self.FTx = FTx
         self.set_FRx(2*self.FTx-self.RxShift)
         Qt.QMetaObject.invokeMethod(self._FTx_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.FTx)))
-        self.portable_interrogator_blocks_csb_gain_control_0.set_freq(self.FTx)
         self.uhd_usrp_sink_0.set_center_freq(self.FTx, 0)
 
     def get_samp_rate_src(self):
@@ -555,11 +551,11 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_samp_rate_src(self, samp_rate_src):
         self.samp_rate_src = samp_rate_src
         self.analog_sig_source_x_0_2.set_sampling_freq(self.samp_rate_src)
-        self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*(-1*(self.RxShift))/self.samp_rate_src)
+        self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*-1*(self.RxShift)/self.samp_rate_src)
         self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate_src, 100e3, 20e3, window.WIN_HAMMING, 6.76))
-        self.portable_interrogator_blocks_get_peaks_0.set_f1((int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.portable_interrogator_blocks_get_peaks_0.set_f13((int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.portable_interrogator_blocks_get_peaks_0.set_f1(int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.portable_interrogator_blocks_get_peaks_0.set_f13(int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.qtgui_freq_sink_x_1.set_frequency_range(self.FRx+self.RxShift, self.samp_rate_src/self.Decimation)
         self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate_src)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate_src)
 
@@ -622,7 +618,7 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Mod_ind(self, Mod_ind):
         self.Mod_ind = Mod_ind
         Qt.QMetaObject.invokeMethod(self._Mod_ind_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.Mod_ind)))
-        self.analog_sig_source_x_0_2.set_amplitude((0.5*self.Mod_ind))
+        self.analog_sig_source_x_0_2.set_amplitude(0.5*self.Mod_ind)
 
     def get_Length(self):
         return self.Length
@@ -630,9 +626,9 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Length(self, Length):
         self.Length = Length
         self.blocks_multiply_const_xx_0.set_k(1/self.Length)
-        self.portable_interrogator_blocks_get_peaks_0.set_f1((int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.portable_interrogator_blocks_get_peaks_0.set_f2((int(self.Length/2)))
-        self.portable_interrogator_blocks_get_peaks_0.set_f13((int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
+        self.portable_interrogator_blocks_get_peaks_0.set_f1(int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.portable_interrogator_blocks_get_peaks_0.set_f2(int(self.Length/2))
+        self.portable_interrogator_blocks_get_peaks_0.set_f13(int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
 
     def get_GTx(self):
         return self.GTx
@@ -656,15 +652,15 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_Fm(self, Fm):
         self.Fm = Fm
         self.analog_sig_source_x_0_2.set_frequency(self.Fm)
-        self.portable_interrogator_blocks_get_peaks_0.set_f1((int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.portable_interrogator_blocks_get_peaks_0.set_f13((int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
+        self.portable_interrogator_blocks_get_peaks_0.set_f1(int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.portable_interrogator_blocks_get_peaks_0.set_f13(int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
 
     def get_FRx(self):
         return self.FRx
 
     def set_FRx(self, FRx):
         self.FRx = FRx
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.qtgui_freq_sink_x_1.set_frequency_range(self.FRx+self.RxShift, self.samp_rate_src/self.Decimation)
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.FRx,0), 0)
 
     def get_Decimation(self):
@@ -672,9 +668,9 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_Decimation(self, Decimation):
         self.Decimation = Decimation
-        self.portable_interrogator_blocks_get_peaks_0.set_f1((int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.portable_interrogator_blocks_get_peaks_0.set_f13((int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2)))
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.portable_interrogator_blocks_get_peaks_0.set_f1(int((-1*self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.portable_interrogator_blocks_get_peaks_0.set_f13(int((self.Fm)*self.Length/(self.samp_rate_src/self.Decimation))+int(self.Length/2))
+        self.qtgui_freq_sink_x_1.set_frequency_range(self.FRx+self.RxShift, self.samp_rate_src/self.Decimation)
 
     def get_Average(self):
         return self.Average

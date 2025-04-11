@@ -563,7 +563,6 @@ blocks:
     alias: ''
     appendDT: appendDT
     comment: ''
-    freq: FTx
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_buffer: buffer
@@ -778,7 +777,6 @@ blocks:
     label7: ''
     label8: ''
     label9: ''
-    legend: 'False'
     maxoutbuf: '0'
     minoutbuf: '0'
     name: '"C/SB vs Relative Tx Power"'
@@ -1633,7 +1631,7 @@ connections:
 - [portable_interrogator_blocks_CSB_calc_0, '3', portable_interrogator_blocks_csb_gain_control_0,
   '3']
 - [portable_interrogator_blocks_csb_gain_control_0, '0', qtgui_vector_sink_f_0, '0']
-- [portable_interrogator_blocks_csb_gain_control_0, gain_out, blocks_msgpair_to_var_0,
+- [portable_interrogator_blocks_csb_gain_control_0, param_out, blocks_msgpair_to_var_0,
   inpair]
 - [portable_interrogator_blocks_get_peaks_0, '0', portable_interrogator_blocks_CSB_calc_0,
   '0']
@@ -1643,4 +1641,3 @@ connections:
 
 metadata:
   file_format: 1
-  grc_version: 3.10.5.1
