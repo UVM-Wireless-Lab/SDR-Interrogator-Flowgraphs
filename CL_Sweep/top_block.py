@@ -5,9 +5,9 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: CSB Gain Sweep
+# Title: CL Sweep
 # Author: Rye Fought (ryesof@gmail.com)
-# Description: Script for sweeping C/SB ratio for AM interrogation of harmonic transponder
+# Description: Script for sweeping gain. Records the received power and the difference: GTx-PRx
 # GNU Radio version: 3.10.5.1
 
 from packaging.version import Version as StrictVersion
@@ -50,9 +50,9 @@ from gnuradio import qtgui
 class top_block(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "CSB Gain Sweep", catch_exceptions=True)
+        gr.top_block.__init__(self, "CL Sweep", catch_exceptions=True)
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("CSB Gain Sweep")
+        self.setWindowTitle("CL Sweep")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -361,7 +361,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_1 = qtgui.freq_sink_c(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
-            (FRx+RxShift), #fc
+            0, #fc
             (samp_rate_src/Decimation), #bw
             "FFT", #name
             1,
@@ -411,6 +411,7 @@ class top_block(gr.top_block, Qt.QWidget):
                 window.WIN_HAMMING,
                 6.76))
         self.fft_vxx_0 = fft.fft_vcc(Length, True, window.blackmanharris(Length), True, 1)
+        self.blocks_var_to_msg_0 = blocks.var_to_msg_pair('freq')
         self.blocks_stream_to_vector_0 = blocks.stream_to_vector(gr.sizeof_gr_complex*1, Length)
         self.blocks_nlog10_ff_0 = blocks.nlog10_ff(10, Length, 0)
         self.blocks_multiply_const_xx_0 = blocks.multiply_const_cc(1/Length, Length)
@@ -424,6 +425,7 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
+        self.msg_connect((self.blocks_var_to_msg_0, 'msgout'), (self.qtgui_freq_sink_x_1, 'freq'))
         self.msg_connect((self.portable_interrogator_blocks_CL_Sweep_Controller_0, 'gain_out'), (self.blocks_msgpair_to_var_0, 'inpair'))
         self.connect((self.analog_sig_source_x_0_2, 0), (self.uhd_usrp_sink_0, 0))
         self.connect((self.blocks_complex_to_mag_squared_0, 0), (self.blocks_nlog10_ff_0, 0))
@@ -480,7 +482,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.RxShift = RxShift
         self.set_FRx(2*self.FTx-self.RxShift)
         self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*(-1*(self.RxShift))/self.samp_rate_src)
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.blocks_var_to_msg_0.variable_changed(self.FRx+self.RxShift)
 
     def get_FTx(self):
         return self.FTx
@@ -499,7 +501,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_0_2.set_sampling_freq(self.samp_rate_src)
         self.blocks_freqshift_cc_0.set_phase_inc(2.0*math.pi*(-1*(self.RxShift))/self.samp_rate_src)
         self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate_src, 100e3, 20e3, window.WIN_HAMMING, 6.76))
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.qtgui_freq_sink_x_1.set_frequency_range(0, (self.samp_rate_src/self.Decimation))
         self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate_src)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate_src)
 
@@ -592,7 +594,7 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_FRx(self, FRx):
         self.FRx = FRx
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.blocks_var_to_msg_0.variable_changed(self.FRx+self.RxShift)
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.FRx,0), 0)
 
     def get_Decimation(self):
@@ -600,7 +602,7 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_Decimation(self, Decimation):
         self.Decimation = Decimation
-        self.qtgui_freq_sink_x_1.set_frequency_range((self.FRx+self.RxShift), (self.samp_rate_src/self.Decimation))
+        self.qtgui_freq_sink_x_1.set_frequency_range(0, (self.samp_rate_src/self.Decimation))
 
     def get_Average(self):
         return self.Average

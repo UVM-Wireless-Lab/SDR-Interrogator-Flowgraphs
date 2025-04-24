@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: CSB Gain Sweep
+    title: CSB Sweep
     window_size: ''
   states:
     bus_sink: false
@@ -474,6 +474,23 @@ blocks:
     coordinate: [304, 664.0]
     rotation: 0
     state: enabled
+- name: blocks_var_to_msg_0
+  id: blocks_var_to_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    msgname: freq
+    target: FRx+RxShift
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [664, 540.0]
+    rotation: 0
+    state: true
 - name: fft_vxx_0
   id: fft_vxx
   parameters:
@@ -624,7 +641,7 @@ blocks:
     color9: '"dark green"'
     comment: ''
     ctrlpanel: 'False'
-    fc: FRx+RxShift
+    fc: '0'
     fftsize: '1024'
     freqhalf: 'True'
     grid: 'False'
@@ -1619,6 +1636,7 @@ connections:
 - [blocks_multiply_const_xx_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [blocks_nlog10_ff_0, '0', virtual_sink_0, '0']
 - [blocks_stream_to_vector_0, '0', fft_vxx_0, '0']
+- [blocks_var_to_msg_0, msgout, qtgui_freq_sink_x_1, freq]
 - [fft_vxx_0, '0', blocks_multiply_const_xx_0, '0']
 - [low_pass_filter_0, '0', qtgui_freq_sink_x_1, '0']
 - [low_pass_filter_0, '0', virtual_sink_1_0_1, '0']
