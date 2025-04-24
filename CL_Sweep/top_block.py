@@ -83,7 +83,7 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.Stop = Stop = 70
+        self.Stop = Stop = 60
         self.Step = Step = 0.5
         self.Start = Start = 0
         self.RxShift = RxShift = 0.2e6
@@ -400,7 +400,7 @@ class top_block(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_1_win = sip.wrapinstance(self.qtgui_freq_sink_x_1.qwidget(), Qt.QWidget)
         self.tab_layout_1.addWidget(self._qtgui_freq_sink_x_1_win)
-        self.portable_interrogator_blocks_CL_Sweep_Controller_0 = portable_interrogator_blocks.CL_Sweep_Controller(Sweep, Start, Stop, Step, buffer, Average, path, getPow.nextPow(outlen),name,appendDT)
+        self.portable_interrogator_blocks_CL_Sweep_Controller_0 = portable_interrogator_blocks.CL_Sweep_Controller(Sweep, Start, Stop, Step, buffer, Average, path, getPow.nextPow(outlen),name,appendDT,GTx)
         self.low_pass_filter_0 = filter.fir_filter_ccf(
             Decimation,
             firdes.low_pass(
@@ -569,6 +569,7 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_GTx(self, GTx):
         self.GTx = GTx
         Qt.QMetaObject.invokeMethod(self._GTx_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.GTx)))
+        self.portable_interrogator_blocks_CL_Sweep_Controller_0.set_tx_gain(self.GTx)
         self.uhd_usrp_sink_0.set_gain(self.GTx, 0)
 
     def get_GRx(self):

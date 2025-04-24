@@ -208,7 +208,7 @@ blocks:
     gui_hint: tab@0:(1,6,1,2)
     label: 'Final Gain: '
     type: real
-    value: '70'
+    value: '60'
   states:
     bus_sink: false
     bus_source: false
@@ -548,31 +548,6 @@ blocks:
     coordinate: [512, 912.0]
     rotation: 0
     state: true
-- name: portable_interrogator_blocks_csb_gain_control_0
-  id: portable_interrogator_blocks_csb_gain_control
-  parameters:
-    Average: Average
-    FileName: name
-    OutLen: getPow.nextPow(outlen)
-    Prefix: path
-    Start: Start
-    Step: Step
-    Stop: Stop
-    Sweep: Sweep
-    affinity: ''
-    alias: ''
-    appendDT: appendDT
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    sample_buffer: buffer
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [752, 876.0]
-    rotation: 0
-    state: enabled
 - name: portable_interrogator_blocks_get_peaks_0
   id: portable_interrogator_blocks_get_peaks
   parameters:
@@ -593,6 +568,31 @@ blocks:
     coordinate: [304, 924.0]
     rotation: 0
     state: true
+- name: portable_interrogator_blocks_sweep_controller_0
+  id: portable_interrogator_blocks_sweep_controller
+  parameters:
+    Average: Average
+    FileName: name
+    OutLen: getPow.nextPow(outlen)
+    Prefix: path
+    Start: Start
+    Step: Step
+    Stop: Stop
+    Sweep: Sweep
+    affinity: ''
+    alias: ''
+    appendDT: appendDT
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_buffer: buffer
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 884.0]
+    rotation: 0
+    state: enabled
 - name: qtgui_freq_sink_x_1
   id: qtgui_freq_sink_x
   parameters:
@@ -777,9 +777,10 @@ blocks:
     label7: ''
     label8: ''
     label9: ''
+    legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '"C/SB vs Relative Tx Power"'
+    name: '"C/SB vs Relative SDR Gain"'
     nconnections: '1'
     ref_level: '0'
     showports: 'False'
@@ -807,7 +808,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 892.0]
+    coordinate: [1080, 892.0]
     rotation: 0
     state: enabled
 - name: tab
@@ -828,8 +829,8 @@ blocks:
     label17: Tab 17
     label18: Tab 18
     label19: Tab 19
-    label2: Sweep Plot
-    label3: Tab 3
+    label2: C/SB Values
+    label3: 'Carrier Power '
     label4: Tab 4
     label5: Tab 5
     label6: Tab 6
@@ -1554,7 +1555,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [208, 388.0]
+    coordinate: [208, 380.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1621,23 +1622,24 @@ connections:
 - [fft_vxx_0, '0', blocks_multiply_const_xx_0, '0']
 - [low_pass_filter_0, '0', qtgui_freq_sink_x_1, '0']
 - [low_pass_filter_0, '0', virtual_sink_1_0_1, '0']
-- [portable_interrogator_blocks_CSB_calc_0, '0', portable_interrogator_blocks_csb_gain_control_0,
+- [portable_interrogator_blocks_CSB_calc_0, '0', portable_interrogator_blocks_sweep_controller_0,
   '0']
 - [portable_interrogator_blocks_CSB_calc_0, '0', qtgui_number_sink_0, '0']
-- [portable_interrogator_blocks_CSB_calc_0, '1', portable_interrogator_blocks_csb_gain_control_0,
+- [portable_interrogator_blocks_CSB_calc_0, '1', portable_interrogator_blocks_sweep_controller_0,
   '1']
-- [portable_interrogator_blocks_CSB_calc_0, '2', portable_interrogator_blocks_csb_gain_control_0,
+- [portable_interrogator_blocks_CSB_calc_0, '2', portable_interrogator_blocks_sweep_controller_0,
   '2']
-- [portable_interrogator_blocks_CSB_calc_0, '3', portable_interrogator_blocks_csb_gain_control_0,
+- [portable_interrogator_blocks_CSB_calc_0, '3', portable_interrogator_blocks_sweep_controller_0,
   '3']
-- [portable_interrogator_blocks_csb_gain_control_0, '0', qtgui_vector_sink_f_0, '0']
-- [portable_interrogator_blocks_csb_gain_control_0, param_out, blocks_msgpair_to_var_0,
-  inpair]
 - [portable_interrogator_blocks_get_peaks_0, '0', portable_interrogator_blocks_CSB_calc_0,
   '0']
+- [portable_interrogator_blocks_sweep_controller_0, '0', qtgui_vector_sink_f_0, '0']
+- [portable_interrogator_blocks_sweep_controller_0, param_out, blocks_msgpair_to_var_0,
+  inpair]
 - [uhd_usrp_source_0, '0', blocks_freqshift_cc_0, '0']
 - [virtual_source_0, '0', portable_interrogator_blocks_get_peaks_0, '0']
 - [virtual_source_1, '0', blocks_stream_to_vector_0, '0']
 
 metadata:
   file_format: 1
+  grc_version: 3.10.5.1

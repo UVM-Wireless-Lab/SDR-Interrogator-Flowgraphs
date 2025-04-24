@@ -193,7 +193,7 @@ blocks:
     gui_hint: tab@0:(1,6,1,2)
     label: 'Final Gain: '
     type: real
-    value: '70'
+    value: '60'
   states:
     bus_sink: false
     bus_source: false
@@ -391,7 +391,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [408, 932.0]
+    coordinate: [368, 924.0]
     rotation: 0
     state: true
 - name: blocks_msgpair_to_var_0
@@ -405,7 +405,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1024, 1044.0]
+    coordinate: [1016, 1020.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_xx_0
@@ -536,17 +536,17 @@ blocks:
     alias: ''
     appendDT: appendDT
     comment: ''
-    freq: FTx
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_buffer: buffer
+    tx_gain: GTx
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [712, 860.0]
+    coordinate: [712, 852.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: qtgui_freq_sink_x_1
   id: qtgui_freq_sink_x
   parameters:
@@ -625,7 +625,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 520.0]
+    coordinate: [984, 520.0]
     rotation: 0
     state: enabled
 - name: qtgui_vector_sink_f_0
@@ -699,7 +699,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1000, 876.0]
+    coordinate: [1000, 868.0]
     rotation: 0
     state: enabled
 - name: tab
@@ -1485,7 +1485,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 940.0]
+    coordinate: [152, 932.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1
