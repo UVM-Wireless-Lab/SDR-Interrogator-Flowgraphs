@@ -1,6 +1,6 @@
 # SDR-Interrogator-Flowgraphs
 ## Overview
-This repository contains two flowgraphs designed for interrogating harmonic transponders. CL_Sweep performs a single carrier interrogation and monitors the relative conversion loss vs power. AM_Sweep performs a two carrier interrogation using a two tone amplitude modulated (AM) interrogation signal. 
+This repository contains two flowgraphs designed for interrogating harmonic transponders. CL_Sweep performs a single carrier interrogation and monitors the relative conversion loss vs power. AM_Sweep performs a two carrier interrogation using a two tone amplitude modulated (AM) interrogation signal. There are two variants for each flowgraph, one for sweeping power and one for sweeping frequency.
 
 ## Requirements
 The flowgraphs require the custom blocks in [SDR-Interrogator-Blocks](https://github.com/UVM-Wireless-Lab/SDR-Interrogator-Blocks]). This module must be installed in GNU Radio before running the flowgraphs. 
